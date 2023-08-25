@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class Matrix
 {
@@ -23,6 +24,18 @@ public class Matrix
         {
             values[rowNum, i] = vals[i];
         }
+    }
+
+    public List<double> GetRow(int rowNum)
+    {
+        List<double> result = new List<double>();
+
+        for (int i = 0; i < cols; i++)
+        {
+            result.Add(values[rowNum, i]);
+        }
+        
+        return result;
     }
     
     // EFFECTS: returns the transposed version of the current matrix.

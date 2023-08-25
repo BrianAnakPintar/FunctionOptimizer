@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class MatrixOperations
@@ -110,6 +111,8 @@ public static class MatrixOperations
                 col--;
             }
 
+            temp = ScaleRow(temp, 0, 1/temp.values[0, 0]);
+
             return temp;
         }
         
@@ -144,5 +147,19 @@ public static class MatrixOperations
         int newCol = col + 1;
         
         return RrefHelper(temp, newRow, newCol);
+    }
+
+    // Appends the matrix A and B, given that their height is the same.
+    public static Matrix appendMatrix(Matrix A, Matrix B)
+    {
+        Matrix result = new Matrix(A.rows, A.cols + B.cols);
+
+        for (int i = 0; i < A.rows; i++)
+        {
+            List<double> newRow = A.GetRow(i).Concat(B.GetRow(i)).ToList();
+            result.SetRow(i, newRow);
+        }
+        
+        return result;
     }
 } 
